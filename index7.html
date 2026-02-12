@@ -7,10 +7,28 @@
     <style>
         :root { --primary: #4a90e2; --success: #4caf50; --error: #e74c3c; --accent: #ffcc00; }
         
-        /* מניעת זום וגלילה מיותרת בזמן לחיצה */
+        /* הסתרת פס גלילה */
+        html, body {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+        body::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
         * { touch-action: manipulation; box-sizing: border-box; }
 
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f9; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; width: 100%; overflow-x: hidden; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: #f4f7f9; 
+            margin: 0; 
+            padding: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%; 
+            overflow-x: hidden; 
+        }
         
         .header, .final-footer { background: var(--primary); color: white; width: 100%; padding: 20px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0; }
         .header h1, .final-footer h2 { margin: 0; font-size: 1.5em; }
@@ -69,7 +87,6 @@
         <div class="label-box" data-id="p-7">כלורופלסט</div>
     </div>
     <div class="image-container">
-        
         <img src="cell_map1.jpg" class="cell-img">
     </div>
     <div class="drop-grid">
@@ -92,7 +109,6 @@
         <div class="label-box" data-id="a-4">מיטוכונדריה</div>
     </div>
     <div class="image-container">
-        
         <img src="cell_map2.jpg" class="cell-img">
     </div>
     <div class="drop-grid">
@@ -138,17 +154,15 @@
 <script>
     let activeLabel = null;
 
-    // פונקציית בחירה מותאמת לטאץ'
     document.querySelectorAll('.label-box').forEach(box => {
         box.addEventListener('click', function(e) {
-            e.preventDefault(); // מניעת התנהגות דפדפן ברירת מחדל
+            e.preventDefault();
             document.querySelectorAll('.label-box').forEach(b => b.classList.remove('selected'));
             activeLabel = this;
             this.classList.add('selected');
         });
     });
 
-    // פונקציית שיבוץ מותאמת לטאץ'
     document.querySelectorAll('.drop-target').forEach(target => {
         target.addEventListener('click', function(e) {
             e.preventDefault();
