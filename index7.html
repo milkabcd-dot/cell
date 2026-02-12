@@ -6,39 +6,43 @@
     <title>מפה אילמת אברוני התא - מילכה ברקו גרש</title>
     <style>
         :root { --primary: #4a90e2; --success: #4caf50; --error: #e74c3c; --accent: #ffcc00; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f9; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; width: 100%; }
         
-        .header, .final-footer { background: var(--primary); color: white; width: 100%; padding: 20px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .header h1, .final-footer h2 { margin: 0; font-size: 1.8em; }
-        .credits { font-size: 1.2em; margin-top: 10px; font-weight: bold; }
+        /* מניעת זום וגלילה מיותרת בזמן לחיצה */
+        * { touch-action: manipulation; box-sizing: border-box; }
 
-        .instructions { background: #fff; padding: 15px; border-radius: 10px; margin: 20px auto; border-right: 6px solid var(--accent); width: 90%; max-width: 500px; text-align: center; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f9; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; width: 100%; overflow-x: hidden; }
+        
+        .header, .final-footer { background: var(--primary); color: white; width: 100%; padding: 20px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0; }
+        .header h1, .final-footer h2 { margin: 0; font-size: 1.5em; }
+        .credits { font-size: 1.1em; margin-top: 5px; font-weight: bold; }
 
-        .game-section, .quiz-section { width: 95%; max-width: 500px; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; text-align: center; }
+        .instructions { background: #fff; padding: 12px; border-radius: 10px; margin: 15px auto; border-right: 6px solid var(--accent); width: 90%; max-width: 500px; text-align: center; font-size: 0.95em; }
+
+        .game-section, .quiz-section { width: 95%; max-width: 500px; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: center; }
         h2 { color: var(--primary); font-size: 1.2em; margin: 5px 0 15px 0; border-bottom: 1px solid #eee; padding-bottom: 8px; }
 
-        .labels-bank { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 15px 0; padding: 12px; background: #fafafa; border-radius: 10px; }
-        .label-box { padding: 10px 16px; background: var(--accent); border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9em; box-shadow: 0 3px 0 #d4aa00; user-select: none; position: relative; z-index: 10; }
-        .label-box.selected { background: #fff; border: 2px solid var(--primary); transform: scale(1.1); }
+        .labels-bank { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 15px 0; padding: 10px; background: #fafafa; border-radius: 10px; }
+        .label-box { padding: 12px 18px; background: var(--accent); border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9em; box-shadow: 0 3px 0 #d4aa00; user-select: none; -webkit-tap-highlight-color: transparent; }
+        .label-box.selected { background: #fff; border: 2px solid var(--primary); transform: scale(1.05); box-shadow: none; }
 
-        .image-container { width: 100%; margin: 15px 0; pointer-events: none; } /* מונע מהתמונה לחסום לחיצות */
-        .cell-img { width: 100%; height: auto; border-radius: 8px; }
+        .image-container { width: 100%; margin: 10px 0; pointer-events: none; }
+        .cell-img { width: 100%; height: auto; border-radius: 8px; display: block; }
 
-        .drop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px; }
-        .drop-target { background: #fff; border: 2px solid #4a90e2; border-radius: 8px; padding: 10px; font-size: 1.1em; font-weight: bold; color: #4a90e2; cursor: pointer; min-height: 45px; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; }
-        .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; font-size: 0.75em; }
+        .drop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 5px; }
+        .drop-target { background: #fff; border: 2px solid #4a90e2; border-radius: 8px; padding: 10px 5px; font-size: 1em; font-weight: bold; color: #4a90e2; cursor: pointer; min-height: 50px; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; }
+        .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; font-size: 0.8em; }
 
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-        .option-btn { padding: 12px 5px; border: 2px solid #ddd; border-radius: 10px; background: #fff; cursor: pointer; font-weight: 600; font-size: 0.9em; position: relative; z-index: 10; }
+        .option-btn { padding: 12px 5px; border: 2px solid #ddd; border-radius: 10px; background: #fff; cursor: pointer; font-weight: 600; font-size: 0.9em; -webkit-tap-highlight-color: transparent; }
         .selected-opt { background: #eef5ff; border-color: var(--primary); color: var(--primary); }
         .correct-selected { background: var(--success) !important; color: white !important; }
         .wrong-selected { background: var(--error) !important; color: white !important; }
         .missed-correct { border: 2px dashed var(--success) !important; color: var(--success); }
 
-        .check-btn { margin-top: 10px; padding: 12px 40px; background: var(--primary); color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; position: relative; z-index: 10; }
-        .check-btn:disabled { background: #ccc; cursor: default; }
+        .check-btn { margin: 10px 0; padding: 12px 40px; background: var(--primary); color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 1.1em; -webkit-tap-highlight-color: transparent; }
+        .check-btn:disabled { background: #ccc; }
 
-        .final-footer { margin-top: 20px; box-shadow: 0 -2px 5px rgba(0,0,0,0.05); }
+        .final-footer { margin-top: 10px; padding: 30px 0; }
     </style>
 </head>
 <body>
@@ -49,7 +53,7 @@
 </div>
 
 <div class="instructions">
-    1. בחרו אברון מהרשימה הצהובה.<br>
+    1. לחצו על אברון בצהוב.<br>
     2. לחצו על המספר המתאים במפה.
 </div>
 
@@ -60,16 +64,20 @@
         <div class="label-box" data-id="p-2">ציטופלזמה</div>
         <div class="label-box" data-id="p-3">גרעין התא</div>
         <div class="label-box" data-id="p-4">מיטוכונדריה</div>
-        <div class="label-box" data-id="p-100">דופן התא</div> <div class="label-box" data-id="p-6">חלולית</div>
+        <div class="label-box" data-id="p-5">דופן התא</div>
+        <div class="label-box" data-id="p-6">חלולית</div>
         <div class="label-box" data-id="p-7">כלורופלסט</div>
     </div>
-    <div class="image-container"><img src="cell_map1.jpg" class="cell-img"></div>
+    <div class="image-container">
+        
+        <img src="cell_map1.jpg" class="cell-img">
+    </div>
     <div class="drop-grid">
         <div class="drop-target" data-target="p-1">1</div>
         <div class="drop-target" data-target="p-2">2</div>
         <div class="drop-target" data-target="p-3">3</div>
         <div class="drop-target" data-target="p-4">4</div>
-        <div class="drop-target" data-target="p-100">5</div>
+        <div class="drop-target" data-target="p-5">5</div>
         <div class="drop-target" data-target="p-6">6</div>
         <div class="drop-target" data-target="p-7">7</div>
     </div>
@@ -83,7 +91,10 @@
         <div class="label-box" data-id="a-3">גרעין התא</div>
         <div class="label-box" data-id="a-4">מיטוכונדריה</div>
     </div>
-    <div class="image-container"><img src="cell_map2.jpg" class="cell-img"></div>
+    <div class="image-container">
+        
+        <img src="cell_map2.jpg" class="cell-img">
+    </div>
     <div class="drop-grid">
         <div class="drop-target" data-target="a-1">1</div>
         <div class="drop-target" data-target="a-2">2</div>
@@ -92,7 +103,7 @@
     </div>
 </div>
 
-<div class="quiz-section" id="quiz-area">
+<div class="quiz-section">
     <h2>שאלות סיכום</h2>
     <div class="quiz-question" id="q1">
         <p>1. סמנו את האברונים המשותפים לתא צמח ולתא בעל חיים:</p>
@@ -127,18 +138,20 @@
 <script>
     let activeLabel = null;
 
-    // טיפול בבחירת אברון
+    // פונקציית בחירה מותאמת לטאץ'
     document.querySelectorAll('.label-box').forEach(box => {
-        box.addEventListener('click', function() {
+        box.addEventListener('click', function(e) {
+            e.preventDefault(); // מניעת התנהגות דפדפן ברירת מחדל
             document.querySelectorAll('.label-box').forEach(b => b.classList.remove('selected'));
             activeLabel = this;
             this.classList.add('selected');
         });
     });
 
-    // טיפול בשיבוץ במפה
+    // פונקציית שיבוץ מותאמת לטאץ'
     document.querySelectorAll('.drop-target').forEach(target => {
-        target.addEventListener('click', function() {
+        target.addEventListener('click', function(e) {
+            e.preventDefault();
             if (!activeLabel) return;
             if (this.dataset.target === activeLabel.dataset.id) {
                 this.textContent = activeLabel.textContent;
@@ -152,9 +165,9 @@
         });
     });
 
-    // טיפול בשאלות סיכום
     document.querySelectorAll('.option-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
             if (!this.parentElement.classList.contains('locked')) {
                 this.classList.toggle('selected-opt');
             }
@@ -164,9 +177,7 @@
     function checkQ(qId) {
         const q = document.getElementById(qId);
         const opts = q.querySelectorAll('.option-btn');
-        const selected = q.querySelectorAll('.selected-opt');
-        
-        if (selected.length === 0) { alert("בחרו לפחות תשובה אחת!"); return; }
+        if (q.querySelectorAll('.selected-opt').length === 0) { alert("בחרו לפחות תשובה אחת!"); return; }
         
         q.querySelector('.options-grid').classList.add('locked');
         q.querySelector('.check-btn').disabled = true;
