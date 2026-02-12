@@ -6,39 +6,39 @@
     <title>מפה אילמת אברוני התא - מילכה ברקו גרש</title>
     <style>
         :root { --primary: #4a90e2; --success: #4caf50; --error: #e74c3c; --accent: #ffcc00; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f9; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; width: 100%; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f9; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; width: 100%; }
         
-        .header { background: var(--primary); color: white; width: 100%; padding: 20px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .header h1 { margin: 0; font-size: 1.8em; }
+        .header, .final-footer { background: var(--primary); color: white; width: 100%; padding: 20px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .header h1, .final-footer h2 { margin: 0; font-size: 1.8em; }
         .credits { font-size: 1.2em; margin-top: 10px; font-weight: bold; }
 
-        .instructions { background: #fff; padding: 15px; border-radius: 10px; margin: 20px auto; border-right: 6px solid var(--accent); width: 90%; max-width: 500px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .instructions { background: #fff; padding: 15px; border-radius: 10px; margin: 20px auto; border-right: 6px solid var(--accent); width: 90%; max-width: 500px; text-align: center; }
 
         .game-section, .quiz-section { width: 95%; max-width: 500px; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; text-align: center; }
         h2 { color: var(--primary); font-size: 1.2em; margin: 5px 0 15px 0; border-bottom: 1px solid #eee; padding-bottom: 8px; }
 
         .labels-bank { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 15px 0; padding: 12px; background: #fafafa; border-radius: 10px; }
-        .label-box { padding: 10px 16px; background: var(--accent); border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9em; box-shadow: 0 3px 0 #d4aa00; user-select: none; }
-        .label-box.selected { border: 2px solid var(--primary); background: #fff; transform: scale(1.05); }
+        .label-box { padding: 10px 16px; background: var(--accent); border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9em; box-shadow: 0 3px 0 #d4aa00; user-select: none; position: relative; z-index: 10; }
+        .label-box.selected { background: #fff; border: 2px solid var(--primary); transform: scale(1.1); }
 
-        .image-container { width: 100%; margin: 15px 0; }
+        .image-container { width: 100%; margin: 15px 0; pointer-events: none; } /* מונע מהתמונה לחסום לחיצות */
         .cell-img { width: 100%; height: auto; border-radius: 8px; }
 
         .drop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px; }
-        .drop-target { background: #fff; border: 2px solid #4a90e2; border-radius: 8px; padding: 10px; font-size: 1.1em; font-weight: bold; color: #4a90e2; cursor: pointer; min-height: 45px; display: flex; align-items: center; justify-content: center; }
+        .drop-target { background: #fff; border: 2px solid #4a90e2; border-radius: 8px; padding: 10px; font-size: 1.1em; font-weight: bold; color: #4a90e2; cursor: pointer; min-height: 45px; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; }
         .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; font-size: 0.75em; }
 
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-        .option-btn { padding: 12px 5px; border: 2px solid #ddd; border-radius: 10px; background: #fff; cursor: pointer; font-weight: 600; font-size: 0.9em; width: 100%; }
+        .option-btn { padding: 12px 5px; border: 2px solid #ddd; border-radius: 10px; background: #fff; cursor: pointer; font-weight: 600; font-size: 0.9em; position: relative; z-index: 10; }
         .selected-opt { background: #eef5ff; border-color: var(--primary); color: var(--primary); }
         .correct-selected { background: var(--success) !important; color: white !important; }
         .wrong-selected { background: var(--error) !important; color: white !important; }
         .missed-correct { border: 2px dashed var(--success) !important; color: var(--success); }
 
-        .check-btn { margin-top: 10px; padding: 12px 40px; background: var(--primary); color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; }
-        
-        .final-footer { background: var(--primary); color: white; width: 100%; padding: 30px 0; text-align: center; margin-top: 40px; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); }
-        .final-footer h2 { color: white; border: none; margin: 0; font-size: 1.6em; }
+        .check-btn { margin-top: 10px; padding: 12px 40px; background: var(--primary); color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; position: relative; z-index: 10; }
+        .check-btn:disabled { background: #ccc; cursor: default; }
+
+        .final-footer { margin-top: 20px; box-shadow: 0 -2px 5px rgba(0,0,0,0.05); }
     </style>
 </head>
 <body>
@@ -56,66 +56,65 @@
 <div class="game-section">
     <h2>תא צמח</h2>
     <div class="labels-bank">
-        <div class="label-box" onclick="selectLabel(this, 'p-1')">קרום התא</div>
-        <div class="label-box" onclick="selectLabel(this, 'p-2')">ציטופלזמה</div>
-        <div class="label-box" onclick="selectLabel(this, 'p-3')">גרעין התא</div>
-        <div class="label-box" onclick="selectLabel(this, 'p-4')">מיטוכונדריה</div>
-        <div class="label-box" onclick="selectLabel(this, 'p-5')">דופן התא</div>
-        <div class="label-box" onclick="selectLabel(this, 'p-6')">חלולית</div>
-        <div class="label-box" onclick="selectLabel(this, 'p-7')">כלורופלסט</div>
+        <div class="label-box" data-id="p-1">קרום התא</div>
+        <div class="label-box" data-id="p-2">ציטופלזמה</div>
+        <div class="label-box" data-id="p-3">גרעין התא</div>
+        <div class="label-box" data-id="p-4">מיטוכונדריה</div>
+        <div class="label-box" data-id="p-100">דופן התא</div> <div class="label-box" data-id="p-6">חלולית</div>
+        <div class="label-box" data-id="p-7">כלורופלסט</div>
     </div>
-    <div class="image-container"><img src="cell_map1.jpg" class="cell-img" alt="תא צמח"></div>
+    <div class="image-container"><img src="cell_map1.jpg" class="cell-img"></div>
     <div class="drop-grid">
-        <div class="drop-target" onclick="drop(this, 'p-1')">1</div>
-        <div class="drop-target" onclick="drop(this, 'p-2')">2</div>
-        <div class="drop-target" onclick="drop(this, 'p-3')">3</div>
-        <div class="drop-target" onclick="drop(this, 'p-4')">4</div>
-        <div class="drop-target" onclick="drop(this, 'p-5')">5</div>
-        <div class="drop-target" onclick="drop(this, 'p-6')">6</div>
-        <div class="drop-target" onclick="drop(this, 'p-7')">7</div>
+        <div class="drop-target" data-target="p-1">1</div>
+        <div class="drop-target" data-target="p-2">2</div>
+        <div class="drop-target" data-target="p-3">3</div>
+        <div class="drop-target" data-target="p-4">4</div>
+        <div class="drop-target" data-target="p-100">5</div>
+        <div class="drop-target" data-target="p-6">6</div>
+        <div class="drop-target" data-target="p-7">7</div>
     </div>
 </div>
 
 <div class="game-section">
     <h2>תא בעל חיים</h2>
     <div class="labels-bank">
-        <div class="label-box" onclick="selectLabel(this, 'a-1')">קרום התא</div>
-        <div class="label-box" onclick="selectLabel(this, 'a-2')">ציטופלזמה</div>
-        <div class="label-box" onclick="selectLabel(this, 'a-3')">גרעין התא</div>
-        <div class="label-box" onclick="selectLabel(this, 'a-4')">מיטוכונדריה</div>
+        <div class="label-box" data-id="a-1">קרום התא</div>
+        <div class="label-box" data-id="a-2">ציטופלזמה</div>
+        <div class="label-box" data-id="a-3">גרעין התא</div>
+        <div class="label-box" data-id="a-4">מיטוכונדריה</div>
     </div>
-    <div class="image-container"><img src="cell_map2.jpg" class="cell-img" alt="תא בעל חיים"></div>
+    <div class="image-container"><img src="cell_map2.jpg" class="cell-img"></div>
     <div class="drop-grid">
-        <div class="drop-target" onclick="drop(this, 'a-1')">1</div>
-        <div class="drop-target" onclick="drop(this, 'a-2')">2</div>
-        <div class="drop-target" onclick="drop(this, 'a-3')">3</div>
-        <div class="drop-target" onclick="drop(this, 'a-4')">4</div>
+        <div class="drop-target" data-target="a-1">1</div>
+        <div class="drop-target" data-target="a-2">2</div>
+        <div class="drop-target" data-target="a-3">3</div>
+        <div class="drop-target" data-target="a-4">4</div>
     </div>
 </div>
 
-<div class="quiz-section">
+<div class="quiz-section" id="quiz-area">
     <h2>שאלות סיכום</h2>
     <div class="quiz-question" id="q1">
         <p>1. סמנו את האברונים המשותפים לתא צמח ולתא בעל חיים:</p>
         <div class="options-grid">
-            <button class="option-btn" data-cor="true" onclick="toggleOpt(this)">קרום התא</button>
-            <button class="option-btn" data-cor="false" onclick="toggleOpt(this)">דופן התא</button>
-            <button class="option-btn" data-cor="true" onclick="toggleOpt(this)">גרעין התא</button>
-            <button class="option-btn" data-cor="false" onclick="toggleOpt(this)">כלורופלסט</button>
-            <button class="option-btn" data-cor="true" onclick="toggleOpt(this)">מיטוכונדריה</button>
-            <button class="option-btn" data-cor="true" onclick="toggleOpt(this)">ציטופלזמה</button>
+            <button class="option-btn" data-cor="true">קרום התא</button>
+            <button class="option-btn" data-cor="false">דופן התא</button>
+            <button class="option-btn" data-cor="true">גרעין התא</button>
+            <button class="option-btn" data-cor="false">כלורופלסט</button>
+            <button class="option-btn" data-cor="true">מיטוכונדריה</button>
+            <button class="option-btn" data-cor="true">ציטופלזמה</button>
         </div>
         <button class="check-btn" onclick="checkQ('q1')">בדיקה</button>
     </div>
     <div class="quiz-question" id="q2">
         <p>2. אילו אברונים מאפיינים רק את תא הצמח?</p>
         <div class="options-grid">
-            <button class="option-btn" data-cor="true" onclick="toggleOpt(this)">דופן התא</button>
-            <button class="option-btn" data-cor="false" onclick="toggleOpt(this)">קרום התא</button>
-            <button class="option-btn" data-cor="true" onclick="toggleOpt(this)">כלורופלסט</button>
-            <button class="option-btn" data-cor="true" onclick="toggleOpt(this)">חלולית גדולה</button>
-            <button class="option-btn" data-cor="false" onclick="toggleOpt(this)">מיטוכונדריה</button>
-            <button class="option-btn" data-cor="false" onclick="toggleOpt(this)">גרעין התא</button>
+            <button class="option-btn" data-cor="true">דופן התא</button>
+            <button class="option-btn" data-cor="false">קרום התא</button>
+            <button class="option-btn" data-cor="true">כלורופלסט</button>
+            <button class="option-btn" data-cor="true">חלולית גדולה</button>
+            <button class="option-btn" data-cor="false">מיטוכונדריה</button>
+            <button class="option-btn" data-cor="false">גרעין התא</button>
         </div>
         <button class="check-btn" onclick="checkQ('q2')">בדיקה</button>
     </div>
@@ -127,35 +126,59 @@
 
 <script>
     let activeLabel = null;
-    let activeId = null;
 
-    function selectLabel(el, id) {
-        document.querySelectorAll('.label-box').forEach(b => b.classList.remove('selected'));
-        activeLabel = el;
-        activeId = id;
-        el.classList.add('selected');
-    }
+    // טיפול בבחירת אברון
+    document.querySelectorAll('.label-box').forEach(box => {
+        box.addEventListener('click', function() {
+            document.querySelectorAll('.label-box').forEach(b => b.classList.remove('selected'));
+            activeLabel = this;
+            this.classList.add('selected');
+        });
+    });
 
-    function drop(el, targetId) {
-        if (!activeLabel) return;
-        if (activeId === targetId) {
-            el.innerText = activeLabel.innerText;
-            el.classList.add('correct');
-            activeLabel.style.visibility = 'hidden';
-            activeLabel = null;
-        } else {
-            el.style.backgroundColor = '#ffcccc';
-            setTimeout(() => { if(!el.classList.contains('correct')) el.style.backgroundColor = '#fff'; }, 500);
-        }
-    }
+    // טיפול בשיבוץ במפה
+    document.querySelectorAll('.drop-target').forEach(target => {
+        target.addEventListener('click', function() {
+            if (!activeLabel) return;
+            if (this.dataset.target === activeLabel.dataset.id) {
+                this.textContent = activeLabel.textContent;
+                this.classList.add('correct');
+                activeLabel.style.visibility = 'hidden';
+                activeLabel = null;
+            } else {
+                this.style.backgroundColor = '#ffcccc';
+                setTimeout(() => { if(!this.classList.contains('correct')) this.style.backgroundColor = '#fff'; }, 500);
+            }
+        });
+    });
 
-    function toggleOpt(btn) {
-        if (!btn.parentElement.classList.contains('locked')) {
-            btn.classList.toggle('selected-opt');
-        }
-    }
+    // טיפול בשאלות סיכום
+    document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (!this.parentElement.classList.contains('locked')) {
+                this.classList.toggle('selected-opt');
+            }
+        });
+    });
 
     function checkQ(qId) {
         const q = document.getElementById(qId);
         const opts = q.querySelectorAll('.option-btn');
-        if (q.querySelectorAll('.selected-opt').
+        const selected = q.querySelectorAll('.selected-opt');
+        
+        if (selected.length === 0) { alert("בחרו לפחות תשובה אחת!"); return; }
+        
+        q.querySelector('.options-grid').classList.add('locked');
+        q.querySelector('.check-btn').disabled = true;
+
+        opts.forEach(opt => {
+            const isCor = opt.dataset.cor === 'true';
+            const isSel = opt.classList.contains('selected-opt');
+            if (isSel && isCor) opt.classList.add('correct-selected');
+            else if (isSel && !isCor) opt.classList.add('wrong-selected');
+            else if (!isSel && isCor) opt.classList.add('missed-correct');
+        });
+    }
+</script>
+</body>
+</html>
