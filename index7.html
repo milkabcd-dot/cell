@@ -6,38 +6,43 @@
     <title>מפה אילמת: אברוני התא</title>
     <style>
         :root { --primary: #4a90e2; --success: #4caf50; --accent: #ffcc00; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f8fbff; margin: 0; display: flex; flex-direction: column; align-items: center; padding-bottom: 50px; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f0f7ff; margin: 0; display: flex; flex-direction: column; align-items: center; padding-bottom: 50px; }
         
-        .header { background: var(--primary); color: white; width: 100%; padding: 15px 0; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .credits { font-size: 0.9em; margin-top: 5px; opacity: 0.9; }
+        .header { background: var(--primary); color: white; width: 100%; padding: 20px 0; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .credits { font-size: 1em; margin-top: 8px; font-weight: 300; }
 
-        .instructions { background: #e3f2fd; padding: 15px; border-radius: 10px; margin: 20px; border-right: 5px solid var(--primary); max-width: 600px; font-weight: bold; }
+        .instructions { background: #fff; padding: 15px 25px; border-radius: 12px; margin: 20px; border-right: 6px solid var(--accent); max-width: 600px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); font-size: 1.1em; line-height: 1.6; }
 
-        .game-container { max-width: 800px; width: 95%; background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .game-container { max-width: 900px; width: 95%; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
 
-        #labels-bank { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 20px; padding: 15px; border: 2px dashed #ddd; border-radius: 15px; }
+        #labels-bank { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 25px; padding: 20px; background: #fafafa; border: 2px dashed #cbd5e0; border-radius: 15px; }
         
-        .label-box { padding: 10px 18px; background: var(--accent); border-radius: 25px; cursor: pointer; font-weight: bold; border: 2px solid transparent; transition: 0.2s; }
-        .label-box.selected { border-color: var(--primary); background: #fff; box-shadow: 0 0 15px rgba(74,144,226,0.5); transform: scale(1.1); }
+        .label-box { padding: 12px 20px; background: var(--accent); border-radius: 30px; cursor: pointer; font-weight: bold; border: 2px solid transparent; transition: all 0.2s ease; box-shadow: 0 4px 0 #d4aa00; }
+        .label-box:hover { transform: translateY(-2px); }
+        .label-box.selected { border-color: var(--primary); background: #fff; box-shadow: 0 0 15px rgba(74,144,226,0.4); transform: scale(1.05); }
 
-        .image-wrapper { position: relative; width: 100%; }
-        #cell-map { width: 100%; height: auto; display: block; border-radius: 10px; }
+        .image-wrapper { position: relative; width: 100%; display: inline-block; }
+        #cell-map { width: 100%; height: auto; display: block; border-radius: 8px; border: 1px solid #eee; }
 
+        /* עיצוב תיבות המטרה - ממוקמות ליד המספרים */
         .drop-target { 
-            position: absolute; width: 20%; height: 6%; 
-            border: 2px solid #aaa; background: rgba(255,255,255,0.85); 
-            border-radius: 5px; display: flex; align-items: center; justify-content: center; 
-            font-size: 0.85em; font-weight: bold; color: #555; cursor: pointer;
-            transform: translate(-50%, -50%);
+            position: absolute; width: 15%; height: 5%; 
+            border: 2px solid #4a90e2; background: rgba(255,255,255,0.9); 
+            border-radius: 6px; display: flex; align-items: center; justify-content: center; 
+            font-size: 0.9em; font-weight: bold; color: #4a90e2; cursor: pointer;
+            transform: translate(-50%, -50%); transition: all 0.3s;
         }
         
-        /* מיקומים מותאמים למפה שלך */
-        .target-1 { top: 44%; left: 47%; } .target-2 { top: 74%; left: 47%; }
-        .target-3 { top: 61%; left: 43%; } .target-4 { top: 10%; left: 47%; }
-        .target-5 { top: 29%; left: 86%; } .target-6 { top: 54%; left: 86%; }
-        .target-7 { top: 78%; left: 86%; }
+        /* מיקומים מדויקים כדי לא להסתיר את המספרים 1-7 */
+        .target-4 { top: 11%; left: 58%; } /* ליד 4 */
+        .target-1 { top: 44%; left: 57%; } /* ליד 1 */
+        .target-3 { top: 61%; left: 54%; } /* ליד 3 */
+        .target-2 { top: 78%; left: 57%; } /* ליד 2 */
+        .target-5 { top: 29%; left: 93%; } /* ליד 5 */
+        .target-6 { top: 54%; left: 93%; } /* ליד 6 */
+        .target-7 { top: 78%; left: 93%; } /* ליד 7 */
 
-        .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; }
+        .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; width: auto; padding: 0 15px; min-width: 15%; box-shadow: 0 4px 0 #2e7d32; }
     </style>
 </head>
 <body>
@@ -48,9 +53,9 @@
 </div>
 
 <div class="instructions">
-    💡 איך משחקים? <br>
-    1. לחצו על שם של אברון מהרשימה הצהובה. <br>
-    2. לחצו על התיבה הלבנה עם המספר המתאים על גבי המפה.
+    <strong>איך משחקים?</strong><br>
+    1. לחצו על שם של אברון מהרשימה הצהובה למטה.<br>
+    2. לחצו על התיבה הכחולה הריקה שנמצאת ליד המספר המתאים במפה.
 </div>
 
 <div class="game-container">
@@ -66,19 +71,21 @@
 
     <div class="image-wrapper">
         <img src="cell_map.jpg" id="cell-map" alt="מפת תא">
-        <div class="drop-target target-1" data-id="label-1">1</div>
-        <div class="drop-target target-2" data-id="label-2">2</div>
-        <div class="drop-target target-3" data-id="label-3">3</div>
-        <div class="drop-target target-4" data-id="label-4">4</div>
-        <div class="drop-target target-5" data-id="label-5">5</div>
-        <div class="drop-target target-6" data-id="label-6">6</div>
-        <div class="drop-target target-7" data-id="label-7">7</div>
+        
+        <div class="drop-target target-1" data-id="label-1">?</div>
+        <div class="drop-target target-2" data-id="label-2">?</div>
+        <div class="drop-target target-3" data-id="label-3">?</div>
+        <div class="drop-target target-4" data-id="label-4">?</div>
+        <div class="drop-target target-5" data-id="label-5">?</div>
+        <div class="drop-target target-6" data-id="label-6">?</div>
+        <div class="drop-target target-7" data-id="label-7">?</div>
     </div>
 </div>
 
 <script>
     let selectedLabel = null;
 
+    // פונקציית בחירת אברון
     document.querySelectorAll('.label-box').forEach(label => {
         label.addEventListener('click', function() {
             document.querySelectorAll('.label-box').forEach(l => l.classList.remove('selected'));
@@ -87,24 +94,38 @@
         });
     });
 
+    // פונקציית לחיצה על המפה
     document.querySelectorAll('.drop-target').forEach(target => {
         target.addEventListener('click', function() {
-            if (!selectedLabel) return;
+            if (!selectedLabel) {
+                alert("בבקשה בחרו קודם שם אברון מהרשימה למעלה");
+                return;
+            }
 
             if (this.getAttribute('data-id') === selectedLabel.id) {
                 this.innerText = selectedLabel.innerText;
                 this.classList.add('correct');
                 selectedLabel.style.visibility = 'hidden';
                 selectedLabel = null;
-                if (document.querySelectorAll('.correct').length === 7) {
-                    alert('כל הכבוד מילכה! השלמתם את המפה בהצלחה.');
-                }
+                checkWin();
             } else {
                 this.style.backgroundColor = "#ffcccc";
-                setTimeout(() => { if(!this.classList.contains('correct')) this.style.backgroundColor = "rgba(255,255,255,0.85)"; }, 500);
+                setTimeout(() => { 
+                    if(!this.classList.contains('correct')) 
+                        this.style.backgroundColor = "rgba(255,255,255,0.9)"; 
+                }, 500);
             }
         });
     });
+
+    function checkWin() {
+        if (document.querySelectorAll('.correct').length === 7) {
+            setTimeout(() => {
+                alert('כל הכבוד! הצלחתם להתאים את כל האברונים במפה.');
+            }, 300);
+        }
+    }
 </script>
+
 </body>
 </html>
