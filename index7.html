@@ -18,35 +18,35 @@
         .label-box { padding: 8px 14px; background: var(--accent); border-radius: 15px; cursor: pointer; font-weight: bold; font-size: 0.9em; box-shadow: 0 2px 0 #d4aa00; user-select: none; }
         .label-box.selected { border: 2px solid var(--primary); background: #fff; transform: scale(1.05); }
 
-        .image-wrapper { position: relative; width: 75%; margin: 0 auto; } 
+        .image-wrapper { position: relative; width: 70%; margin: 0 auto; } 
         .cell-img { width: 100%; height: auto; display: block; border-radius: 8px; }
 
         .drop-target { 
-            position: absolute; width: 32%; height: 6%; 
+            position: absolute; width: 35%; height: 6%; 
             border: 1.5px solid #4a90e2; background: rgba(255,255,255,1); 
             border-radius: 4px; display: flex; align-items: center; justify-content: center; 
-            font-size: 0.8em; font-weight: bold; color: #4a90e2; cursor: pointer;
+            font-size: 0.85em; font-weight: bold; color: #4a90e2; cursor: pointer;
             transform: translate(-50%, -50%);
             z-index: 10;
         }
 
-        /* --- תא צמח: מיקומים מדויקים ליד החצים --- */
-        /* צד שמאל - ליד חצים 1 ו-3 */
-        .m1-t1 { top: 44%; left: -18%; } /* קרום התא - ליד 1 */
-        .m1-t3 { top: 62%; left: -18%; } /* גרעין התא - ליד 3 */
+        /* --- תא צמח: מיקומים מעודכנים --- */
+        /* צד שמאל - ליד חצים 1, 2, 3, 4 */
+        .m1-t1 { top: 44%; left: -20%; } /* קרום התא (1) */
+        .m1-t2 { top: 72%; left: -20%; } /* ציטופלזמה (2) */
+        .m1-t3 { top: 62%; left: -20%; } /* גרעין התא (3) */
+        .m1-t4 { top: 92%; left: -20%; } /* מיטוכונדריה (4) */
         
-        /* צד ימין - ליד המספרים 5,6,2,7,4 */
-        .m1-t5 { top: 29%; left: 118%; } /* דופן התא - ליד 5 */
-        .m1-t6 { top: 54%; left: 118%; } /* חלולית - ליד 6 */
-        .m1-t2 { top: 72%; left: 118%; } /* ציטופלזמה - ליד 2 */
-        .m1-t7 { top: 82%; left: 118%; } /* כלורופלסט - ליד 7 */
-        .m1-t4 { top: 92%; left: 118%; } /* מיטוכונדריה - ליד 4 */
+        /* צד ימין - ליד המספרים 5, 6, 7 */
+        .m1-t5 { top: 29%; left: 120%; } /* דופן התא (5) */
+        .m1-t6 { top: 54%; left: 120%; } /* חלולית (6) */
+        .m1-t7 { top: 82%; left: 120%; } /* כלורופלסט (7) */
 
         /* --- תא בעל חיים: מיקומים --- */
-        .m2-t4 { top: 12%; left: 118%; } 
-        .m2-t1 { top: 44%; left: 118%; } 
-        .m2-t3 { top: 62%; left: 118%; } 
-        .m2-t2 { top: 78%; left: 118%; } 
+        .m2-t4 { top: 12%; left: 120%; } 
+        .m2-t1 { top: 44%; left: 120%; } 
+        .m2-t3 { top: 62%; left: 120%; } 
+        .m2-t2 { top: 78%; left: 120%; } 
 
         .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; box-shadow: 0 2px 0 #2e7d32; }
     </style>
@@ -65,23 +65,23 @@
 <div class="game-section">
     <h2>תא צמח</h2>
     <div class="labels-bank">
-        <div class="label-box" id="m1-l5">דופן התא</div>
         <div class="label-box" id="m1-l1">קרום התא</div>
-        <div class="label-box" id="m1-l6">חלולית</div>
-        <div class="label-box" id="m1-l3">גרעין התא</div>
         <div class="label-box" id="m1-l2">ציטופלזמה</div>
-        <div class="label-box" id="m1-l7">כלורופלסט</div>
+        <div class="label-box" id="m1-l3">גרעין התא</div>
         <div class="label-box" id="m1-l4">מיטוכונדריה</div>
+        <div class="label-box" id="m1-l5">דופן התא</div>
+        <div class="label-box" id="m1-l6">חלולית</div>
+        <div class="label-box" id="m1-l7">כלורופלסט</div>
     </div>
     <div class="image-wrapper">
         <img src="cell_map1.jpg" class="cell-img" alt="תא צמח">
-        <div class="drop-target m1-t5" data-id="m1-l5">?</div>
         <div class="drop-target m1-t1" data-id="m1-l1">?</div>
-        <div class="drop-target m1-t6" data-id="m1-l6">?</div>
-        <div class="drop-target m1-t3" data-id="m1-l3">?</div>
         <div class="drop-target m1-t2" data-id="m1-l2">?</div>
-        <div class="drop-target m1-t7" data-id="m1-l7">?</div>
+        <div class="drop-target m1-t3" data-id="m1-l3">?</div>
         <div class="drop-target m1-t4" data-id="m1-l4">?</div>
+        <div class="drop-target m1-t5" data-id="m1-l5">?</div>
+        <div class="drop-target m1-t6" data-id="m1-l6">?</div>
+        <div class="drop-target m1-t7" data-id="m1-l7">?</div>
     </div>
 </div>
 
