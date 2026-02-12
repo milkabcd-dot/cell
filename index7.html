@@ -7,16 +7,19 @@
     <style>
         :root { --primary: #4a90e2; --success: #4caf50; --error: #e74c3c; --accent: #ffcc00; }
         
-        /* הסתרת פס גלילה */
-        html, body {
+        /* הסתרה מוחלטת של פסי גלילה בכל הדפדפנים */
+        html {
             scrollbar-width: none; /* Firefox */
             -ms-overflow-style: none; /* IE/Edge */
+            overflow-y: scroll;
         }
-        body::-webkit-scrollbar {
+        html::-webkit-scrollbar, body::-webkit-scrollbar {
             display: none; /* Chrome, Safari, Opera */
+            width: 0 !important;
+            height: 0 !important;
         }
 
-        * { touch-action: manipulation; box-sizing: border-box; }
+        * { touch-action: manipulation; box-sizing: border-box; -webkit-overflow-scrolling: touch; }
 
         body { 
             font-family: 'Segoe UI', sans-serif; 
@@ -27,11 +30,12 @@
             flex-direction: column; 
             align-items: center; 
             width: 100%; 
-            overflow-x: hidden; 
+            overflow-x: hidden;
         }
         
-        .header, .final-footer { background: var(--primary); color: white; width: 100%; padding: 20px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0; }
-        .header h1, .final-footer h2 { margin: 0; font-size: 1.5em; }
+        .header, .final-footer { background: var(--primary); color: white; width: 100%; padding: 20px 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0; }
+        .header h1 { margin: 0; font-size: 1.5em; }
+        .final-footer h2 { margin: 0; font-size: 1.3em; line-height: 1.4; font-weight: bold; }
         .credits { font-size: 1.1em; margin-top: 5px; font-weight: bold; }
 
         .instructions { background: #fff; padding: 12px; border-radius: 10px; margin: 15px auto; border-right: 6px solid var(--accent); width: 90%; max-width: 500px; text-align: center; font-size: 0.95em; }
@@ -60,7 +64,7 @@
         .check-btn { margin: 10px 0; padding: 12px 40px; background: var(--primary); color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 1.1em; -webkit-tap-highlight-color: transparent; }
         .check-btn:disabled { background: #ccc; }
 
-        .final-footer { margin-top: 10px; padding: 30px 0; }
+        .final-footer { margin-top: 10px; padding: 35px 15px; }
     </style>
 </head>
 <body>
@@ -87,6 +91,7 @@
         <div class="label-box" data-id="p-7">כלורופלסט</div>
     </div>
     <div class="image-container">
+        
         <img src="cell_map1.jpg" class="cell-img">
     </div>
     <div class="drop-grid">
@@ -109,6 +114,7 @@
         <div class="label-box" data-id="a-4">מיטוכונדריה</div>
     </div>
     <div class="image-container">
+        
         <img src="cell_map2.jpg" class="cell-img">
     </div>
     <div class="drop-grid">
@@ -148,7 +154,7 @@
 </div>
 
 <div class="final-footer">
-    <h2>מקווה שנהניתם מהפעילות</h2>
+    <h2>עריכה מילכה ברקו גרש: מקווה שנהניתם מהפעילות?</h2>
 </div>
 
 <script>
