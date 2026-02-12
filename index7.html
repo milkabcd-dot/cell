@@ -15,38 +15,38 @@
         h2 { color: var(--primary); text-align: center; font-size: 1.2em; margin: 10px 0; }
 
         .labels-bank { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 15px; padding: 10px; background: #fafafa; border-radius: 10px; border: 1px dashed #ccc; }
-        .label-box { padding: 8px 14px; background: var(--accent); border-radius: 15px; cursor: pointer; font-weight: bold; font-size: 0.9em; box-shadow: 0 2px 0 #d4aa00; user-select: none; }
+        .label-box { padding: 8px 14px; background: var(--accent); border-radius: 15px; cursor: pointer; font-weight: bold; font-size: 0.85em; box-shadow: 0 2px 0 #d4aa00; user-select: none; }
         .label-box.selected { border: 2px solid var(--primary); background: #fff; transform: scale(1.05); }
 
-        .image-wrapper { position: relative; width: 70%; margin: 0 auto; } 
+        .image-wrapper { position: relative; width: 65%; margin: 0 auto; } 
         .cell-img { width: 100%; height: auto; display: block; border-radius: 8px; }
 
         .drop-target { 
-            position: absolute; width: 35%; height: 6%; 
+            position: absolute; width: 38%; height: 6.5%; 
             border: 1.5px solid #4a90e2; background: rgba(255,255,255,1); 
             border-radius: 4px; display: flex; align-items: center; justify-content: center; 
-            font-size: 0.85em; font-weight: bold; color: #4a90e2; cursor: pointer;
+            font-size: 0.8em; font-weight: bold; color: #4a90e2; cursor: pointer;
             transform: translate(-50%, -50%);
             z-index: 10;
         }
 
-        /* --- תא צמח: מיקומים מעודכנים --- */
-        /* צד שמאל - ליד חצים 1, 2, 3, 4 */
-        .m1-t1 { top: 44%; left: -20%; } /* קרום התא (1) */
-        .m1-t2 { top: 72%; left: -20%; } /* ציטופלזמה (2) */
-        .m1-t3 { top: 62%; left: -20%; } /* גרעין התא (3) */
-        .m1-t4 { top: 92%; left: -20%; } /* מיטוכונדריה (4) */
+        /* --- תא צמח: מיקומים סופיים --- */
+        /* צד שמאל */
+        .m1-t1 { top: 44%; left: -25%; } /* קרום התא (1) */
+        .m1-t2 { top: 72%; left: -25%; } /* ציטופלזמה (2) */
+        .m1-t3 { top: 62%; left: -25%; } /* גרעין התא (3) */
+        .m1-t4 { top: 92%; left: -25%; } /* מיטוכונדריה (4) */
         
-        /* צד ימין - ליד המספרים 5, 6, 7 */
-        .m1-t5 { top: 29%; left: 120%; } /* דופן התא (5) */
-        .m1-t6 { top: 54%; left: 120%; } /* חלולית (6) */
-        .m1-t7 { top: 82%; left: 120%; } /* כלורופלסט (7) */
+        /* צד ימין */
+        .m1-t5 { top: 29%; left: 125%; } /* דופן התא (5) */
+        .m1-t6 { top: 54%; left: 125%; } /* חלולית (6) */
+        .m1-t7 { top: 82%; left: 125%; } /* כלורופלסט (7) */
 
         /* --- תא בעל חיים: מיקומים --- */
-        .m2-t4 { top: 12%; left: 120%; } 
-        .m2-t1 { top: 44%; left: 120%; } 
-        .m2-t3 { top: 62%; left: 120%; } 
-        .m2-t2 { top: 78%; left: 120%; } 
+        .m2-t4 { top: 12%; left: 125%; } 
+        .m2-t1 { top: 44%; left: 125%; } 
+        .m2-t3 { top: 62%; left: 125%; } 
+        .m2-t2 { top: 78%; left: 125%; } 
 
         .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; box-shadow: 0 2px 0 #2e7d32; }
     </style>
@@ -59,7 +59,7 @@
 </div>
 
 <div class="instructions">
-    לחצו על שם אברון מהרשימה הצהובה, ואז על הריבוע המתאים לו ליד החצים במפה.
+    לחצו על שם אברון ואז על הריבוע המתאים לו ליד החץ.
 </div>
 
 <div class="game-section">
@@ -95,10 +95,10 @@
     </div>
     <div class="image-wrapper">
         <img src="cell_map2.jpg" class="cell-img" alt="תא בעל חיים">
-        <div class="drop-target m2-t4" data-id="m2-l4">?</div>
         <div class="drop-target m2-t1" data-id="m2-l1">?</div>
-        <div class="drop-target m2-t3" data-id="m2-l3">?</div>
         <div class="drop-target m2-t2" data-id="m2-l2">?</div>
+        <div class="drop-target m2-t3" data-id="m2-l3">?</div>
+        <div class="drop-target m2-t4" data-id="m2-l4">?</div>
     </div>
 </div>
 
