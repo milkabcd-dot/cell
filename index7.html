@@ -7,19 +7,14 @@
     <style>
         :root { --primary: #4a90e2; --success: #4caf50; --error: #e74c3c; --accent: #ffcc00; }
         
-        /* הסתרה מוחלטת של פסי גלילה בכל הדפדפנים */
-        html {
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
-            overflow-y: scroll;
+        /* ניסיון נוסף להעלמת פס גלילה */
+        html, body {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
-        html::-webkit-scrollbar, body::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
-            width: 0 !important;
-            height: 0 !important;
-        }
+        body::-webkit-scrollbar { display: none; }
 
-        * { touch-action: manipulation; box-sizing: border-box; -webkit-overflow-scrolling: touch; }
+        * { touch-action: manipulation; box-sizing: border-box; }
 
         body { 
             font-family: 'Segoe UI', sans-serif; 
@@ -30,41 +25,53 @@
             flex-direction: column; 
             align-items: center; 
             width: 100%; 
-            overflow-x: hidden;
         }
         
-        .header, .final-footer { background: var(--primary); color: white; width: 100%; padding: 20px 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0; }
-        .header h1 { margin: 0; font-size: 1.5em; }
-        .final-footer h2 { margin: 0; font-size: 1.3em; line-height: 1.4; font-weight: bold; }
+        .header { background: var(--primary); color: white; width: 100%; padding: 15px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .header h1 { margin: 0; font-size: 1.4em; }
         .credits { font-size: 1.1em; margin-top: 5px; font-weight: bold; }
 
-        .instructions { background: #fff; padding: 12px; border-radius: 10px; margin: 15px auto; border-right: 6px solid var(--accent); width: 90%; max-width: 500px; text-align: center; font-size: 0.95em; }
+        .instructions { background: #fff; padding: 12px; border-radius: 10px; margin: 15px auto; border-right: 6px solid var(--accent); width: 90%; max-width: 500px; text-align: center; font-size: 0.9em; }
 
         .game-section, .quiz-section { width: 95%; max-width: 500px; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: center; }
-        h2 { color: var(--primary); font-size: 1.2em; margin: 5px 0 15px 0; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        h2 { color: var(--primary); font-size: 1.1em; margin: 5px 0 10px 0; border-bottom: 1px solid #eee; padding-bottom: 5px; }
 
-        .labels-bank { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 15px 0; padding: 10px; background: #fafafa; border-radius: 10px; }
-        .label-box { padding: 12px 18px; background: var(--accent); border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9em; box-shadow: 0 3px 0 #d4aa00; user-select: none; -webkit-tap-highlight-color: transparent; }
+        .labels-bank { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 10px 0; padding: 10px; background: #fafafa; border-radius: 10px; }
+        .label-box { padding: 10px 15px; background: var(--accent); border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.85em; box-shadow: 0 3px 0 #d4aa00; user-select: none; }
         .label-box.selected { background: #fff; border: 2px solid var(--primary); transform: scale(1.05); box-shadow: none; }
 
         .image-container { width: 100%; margin: 10px 0; pointer-events: none; }
         .cell-img { width: 100%; height: auto; border-radius: 8px; display: block; }
 
-        .drop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 5px; }
-        .drop-target { background: #fff; border: 2px solid #4a90e2; border-radius: 8px; padding: 10px 5px; font-size: 1em; font-weight: bold; color: #4a90e2; cursor: pointer; min-height: 50px; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; }
-        .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; font-size: 0.8em; }
+        .drop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .drop-target { background: #fff; border: 2px solid #4a90e2; border-radius: 8px; padding: 8px 2px; font-size: 0.95em; font-weight: bold; color: #4a90e2; cursor: pointer; min-height: 45px; display: flex; align-items: center; justify-content: center; }
+        .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; font-size: 0.75em; }
 
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-        .option-btn { padding: 12px 5px; border: 2px solid #ddd; border-radius: 10px; background: #fff; cursor: pointer; font-weight: 600; font-size: 0.9em; -webkit-tap-highlight-color: transparent; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+        .option-btn { padding: 10px 4px; border: 2px solid #ddd; border-radius: 10px; background: #fff; cursor: pointer; font-weight: 600; font-size: 0.85em; }
         .selected-opt { background: #eef5ff; border-color: var(--primary); color: var(--primary); }
         .correct-selected { background: var(--success) !important; color: white !important; }
         .wrong-selected { background: var(--error) !important; color: white !important; }
         .missed-correct { border: 2px dashed var(--success) !important; color: var(--success); }
 
-        .check-btn { margin: 10px 0; padding: 12px 40px; background: var(--primary); color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 1.1em; -webkit-tap-highlight-color: transparent; }
-        .check-btn:disabled { background: #ccc; }
+        .check-btn { margin: 10px 0; padding: 10px 30px; background: var(--primary); color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; }
 
-        .final-footer { margin-top: 10px; padding: 35px 15px; }
+        /* המלבן הכחול התחתון - דק יותר */
+        .final-footer { 
+            background: var(--primary); 
+            color: white; 
+            width: 100%; 
+            padding: 12px 10px; 
+            text-align: center; 
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            margin-top: 10px;
+        }
+        .final-footer p { 
+            margin: 0; 
+            font-size: 1em; 
+            font-weight: bold; 
+            line-height: 1.2;
+        }
     </style>
 </head>
 <body>
@@ -154,7 +161,7 @@
 </div>
 
 <div class="final-footer">
-    <h2>עריכה מילכה ברקו גרש: מקווה שנהניתם מהפעילות?</h2>
+    <p>עריכה מילכה ברקו גרש: מקווה שנהניתם מהפעילות?</p>
 </div>
 
 <script>
