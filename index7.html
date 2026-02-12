@@ -65,10 +65,6 @@
         <div class="label-box" onclick="selectLabel(this, 'p-7')">כלורופלסט</div>
     </div>
     <div class="image-container"><img src="cell_map1.jpg" class="cell-img" alt="תא צמח"></div>
-    
-
-[Image of plant cell structure with labels]
-
     <div class="drop-grid">
         <div class="drop-target" onclick="drop(this, 'p-1')">1</div>
         <div class="drop-target" onclick="drop(this, 'p-2')">2</div>
@@ -89,10 +85,6 @@
         <div class="label-box" onclick="selectLabel(this, 'a-4')">מיטוכונדריה</div>
     </div>
     <div class="image-container"><img src="cell_map2.jpg" class="cell-img" alt="תא בעל חיים"></div>
-    
-
-[Image of animal cell structure with labels]
-
     <div class="drop-grid">
         <div class="drop-target" onclick="drop(this, 'a-1')">1</div>
         <div class="drop-target" onclick="drop(this, 'a-2')">2</div>
@@ -166,19 +158,4 @@
     function checkQ(qId) {
         const q = document.getElementById(qId);
         const opts = q.querySelectorAll('.option-btn');
-        if (q.querySelectorAll('.selected-opt').length === 0) { alert("בחרו תשובה!"); return; }
-        
-        q.querySelector('.options-grid').classList.add('locked');
-        q.querySelector('.check-btn').disabled = true;
-
-        opts.forEach(opt => {
-            const isCor = opt.getAttribute('data-cor') === 'true';
-            const isSel = opt.classList.contains('selected-opt');
-            if (isSel && isCor) opt.classList.add('correct-selected');
-            else if (isSel && !isCor) opt.classList.add('wrong-selected');
-            else if (!isSel && isCor) opt.classList.add('missed-correct');
-        });
-    }
-</script>
-</body>
-</html>
+        if (q.querySelectorAll('.selected-opt').
