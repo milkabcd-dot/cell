@@ -24,7 +24,6 @@
         .image-wrapper { position: relative; width: 100%; display: inline-block; }
         #cell-map { width: 100%; height: auto; display: block; border-radius: 8px; border: 1px solid #eee; }
 
-        /* עיצוב תיבות המטרה - ממוקמות ליד המספרים */
         .drop-target { 
             position: absolute; width: 15%; height: 5%; 
             border: 2px solid #4a90e2; background: rgba(255,255,255,0.9); 
@@ -33,14 +32,14 @@
             transform: translate(-50%, -50%); transition: all 0.3s;
         }
         
-        /* מיקומים מדויקים כדי לא להסתיר את המספרים 1-7 */
-        .target-4 { top: 11%; left: 58%; } /* ליד 4 */
-        .target-1 { top: 44%; left: 57%; } /* ליד 1 */
-        .target-3 { top: 61%; left: 54%; } /* ליד 3 */
-        .target-2 { top: 78%; left: 57%; } /* ליד 2 */
-        .target-5 { top: 29%; left: 93%; } /* ליד 5 */
-        .target-6 { top: 54%; left: 93%; } /* ליד 6 */
-        .target-7 { top: 78%; left: 93%; } /* ליד 7 */
+        /* מיקומים מעודכנים לדיוק מירבי */
+        .target-4 { top: 13%; left: 63%; } /* מיטוכונדריה - הוזז למטה וימינה */
+        .target-1 { top: 44%; left: 60%; } /* קרום התא - הוזז ימינה */
+        .target-3 { top: 61%; left: 54%; } /* גרעין */
+        .target-2 { top: 78%; left: 54%; } /* ציטופלזמה */
+        .target-5 { top: 29%; left: 93%; } /* דופן */
+        .target-6 { top: 54%; left: 93%; } /* חלולית */
+        .target-7 { top: 78%; left: 93%; } /* כלורופלסט */
 
         .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; width: auto; padding: 0 15px; min-width: 15%; box-shadow: 0 4px 0 #2e7d32; }
     </style>
@@ -54,8 +53,8 @@
 
 <div class="instructions">
     <strong>איך משחקים?</strong><br>
-    1. לחצו על שם של אברון מהרשימה הצהובה למטה.<br>
-    2. לחצו על התיבה הכחולה הריקה שנמצאת ליד המספר המתאים במפה.
+    1. לחצו על שם של אברון מהרשימה הצהובה.<br>
+    2. לחצו על התיבה הריקה שליד המספר המתאים במפה.
 </div>
 
 <div class="game-container">
@@ -85,7 +84,6 @@
 <script>
     let selectedLabel = null;
 
-    // פונקציית בחירת אברון
     document.querySelectorAll('.label-box').forEach(label => {
         label.addEventListener('click', function() {
             document.querySelectorAll('.label-box').forEach(l => l.classList.remove('selected'));
@@ -94,20 +92,18 @@
         });
     });
 
-    // פונקציית לחיצה על המפה
     document.querySelectorAll('.drop-target').forEach(target => {
         target.addEventListener('click', function() {
-            if (!selectedLabel) {
-                alert("בבקשה בחרו קודם שם אברון מהרשימה למעלה");
-                return;
-            }
+            if (!selectedLabel) return;
 
             if (this.getAttribute('data-id') === selectedLabel.id) {
                 this.innerText = selectedLabel.innerText;
                 this.classList.add('correct');
                 selectedLabel.style.visibility = 'hidden';
                 selectedLabel = null;
-                checkWin();
+                if (document.querySelectorAll('.correct').length === 7) {
+                    setTimeout(() => alert('כל הכבוד! סיימתם את המשימה.'), 300);
+                }
             } else {
                 this.style.backgroundColor = "#ffcccc";
                 setTimeout(() => { 
@@ -117,15 +113,6 @@
             }
         });
     });
-
-    function checkWin() {
-        if (document.querySelectorAll('.correct').length === 7) {
-            setTimeout(() => {
-                alert('כל הכבוד! הצלחתם להתאים את כל האברונים במפה.');
-            }, 300);
-        }
-    }
 </script>
-
 </body>
 </html>
