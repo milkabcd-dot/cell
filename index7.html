@@ -11,18 +11,18 @@
         .header { background: var(--primary); color: white; width: 100%; padding: 15px 0; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .instructions { background: #fff; padding: 12px; border-radius: 10px; margin: 15px; border-right: 5px solid var(--accent); max-width: 90%; font-size: 0.95em; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 
-        .game-section { max-width: 600px; width: 95%; background: white; padding: 15px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .game-section { max-width: 650px; width: 95%; background: white; padding: 15px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
         h2 { color: var(--primary); text-align: center; font-size: 1.2em; margin: 10px 0; }
 
         .labels-bank { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 15px; padding: 10px; background: #fafafa; border-radius: 10px; border: 1px dashed #ccc; }
         .label-box { padding: 8px 14px; background: var(--accent); border-radius: 15px; cursor: pointer; font-weight: bold; font-size: 0.9em; box-shadow: 0 2px 0 #d4aa00; user-select: none; }
         .label-box.selected { border: 2px solid var(--primary); background: #fff; transform: scale(1.05); }
 
-        .image-wrapper { position: relative; width: 85%; margin: 0 auto; } 
+        .image-wrapper { position: relative; width: 75%; margin: 0 auto; } 
         .cell-img { width: 100%; height: auto; display: block; border-radius: 8px; }
 
         .drop-target { 
-            position: absolute; width: 28%; height: 7%; 
+            position: absolute; width: 32%; height: 6%; 
             border: 1.5px solid #4a90e2; background: rgba(255,255,255,1); 
             border-radius: 4px; display: flex; align-items: center; justify-content: center; 
             font-size: 0.8em; font-weight: bold; color: #4a90e2; cursor: pointer;
@@ -30,23 +30,23 @@
             z-index: 10;
         }
 
-        /* --- מיקומים תא צמח (מפה 1) --- */
-        /* משמאל - מכסים את שאריות החצים */
-        .m1-t1 { top: 44%; left: 10%; width: 30%; } /* קרום התא - מכסה חץ 1 */
-        .m1-t3 { top: 62%; left: 10%; width: 30%; } /* גרעין התא - מכסה חץ 3 */
+        /* --- תא צמח: מיקומים מדויקים ליד החצים --- */
+        /* צד שמאל - ליד חצים 1 ו-3 */
+        .m1-t1 { top: 44%; left: -18%; } /* קרום התא - ליד 1 */
+        .m1-t3 { top: 62%; left: -18%; } /* גרעין התא - ליד 3 */
         
-        /* מימין - קרוב למספרים (מעל או מתחת) */
-        .m1-t5 { top: 22%; left: 88%; } /* דופן התא - מעל מספר 5 */
-        .m1-t6 { top: 48%; left: 88%; } /* חלולית - מעל מספר 6 */
-        .m1-t2 { top: 66%; left: 88%; } /* ציטופלזמה - מעל מספר 2 */
-        .m1-t7 { top: 82%; left: 88%; } /* כלורופלסט - מתחת למספר 7 */
-        .m1-t4 { top: 94%; left: 88%; } /* מיטוכונדריה - מתחת למספר 4 */
+        /* צד ימין - ליד המספרים 5,6,2,7,4 */
+        .m1-t5 { top: 29%; left: 118%; } /* דופן התא - ליד 5 */
+        .m1-t6 { top: 54%; left: 118%; } /* חלולית - ליד 6 */
+        .m1-t2 { top: 72%; left: 118%; } /* ציטופלזמה - ליד 2 */
+        .m1-t7 { top: 82%; left: 118%; } /* כלורופלסט - ליד 7 */
+        .m1-t4 { top: 92%; left: 118%; } /* מיטוכונדריה - ליד 4 */
 
-        /* --- מיקומים תא בעל חיים (מפה 2) --- */
-        .m2-t4 { top: 12%; left: 85%; } 
-        .m2-t1 { top: 44%; left: 85%; } 
-        .m2-t3 { top: 62%; left: 85%; } 
-        .m2-t2 { top: 78%; left: 85%; } 
+        /* --- תא בעל חיים: מיקומים --- */
+        .m2-t4 { top: 12%; left: 118%; } 
+        .m2-t1 { top: 44%; left: 118%; } 
+        .m2-t3 { top: 62%; left: 118%; } 
+        .m2-t2 { top: 78%; left: 118%; } 
 
         .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; box-shadow: 0 2px 0 #2e7d32; }
     </style>
@@ -59,7 +59,7 @@
 </div>
 
 <div class="instructions">
-    לחצו על שם אברון מהרשימה הצהובה, ואז על הריבוע הלבן המתאים לו במפה.
+    לחצו על שם אברון מהרשימה הצהובה, ואז על הריבוע המתאים לו ליד החצים במפה.
 </div>
 
 <div class="game-section">
@@ -75,13 +75,13 @@
     </div>
     <div class="image-wrapper">
         <img src="cell_map1.jpg" class="cell-img" alt="תא צמח">
-        <div class="drop-target m1-t1" data-id="m1-l1">?</div>
-        <div class="drop-target m1-t2" data-id="m1-l2">?</div>
-        <div class="drop-target m1-t3" data-id="m1-l3">?</div>
-        <div class="drop-target m1-t4" data-id="m1-l4">?</div>
         <div class="drop-target m1-t5" data-id="m1-l5">?</div>
+        <div class="drop-target m1-t1" data-id="m1-l1">?</div>
         <div class="drop-target m1-t6" data-id="m1-l6">?</div>
+        <div class="drop-target m1-t3" data-id="m1-l3">?</div>
+        <div class="drop-target m1-t2" data-id="m1-l2">?</div>
         <div class="drop-target m1-t7" data-id="m1-l7">?</div>
+        <div class="drop-target m1-t4" data-id="m1-l4">?</div>
     </div>
 </div>
 
