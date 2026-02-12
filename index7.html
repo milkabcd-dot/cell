@@ -15,39 +15,38 @@
         h2 { color: var(--primary); text-align: center; font-size: 1.2em; margin: 10px 0; }
 
         .labels-bank { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 15px; padding: 10px; background: #fafafa; border-radius: 10px; border: 1px dashed #ccc; }
-        .label-box { padding: 6px 12px; background: var(--accent); border-radius: 15px; cursor: pointer; font-weight: bold; font-size: 0.85em; box-shadow: 0 2px 0 #d4aa00; user-select: none; }
+        .label-box { padding: 8px 14px; background: var(--accent); border-radius: 15px; cursor: pointer; font-weight: bold; font-size: 0.9em; box-shadow: 0 2px 0 #d4aa00; user-select: none; }
         .label-box.selected { border: 2px solid var(--primary); background: #fff; transform: scale(1.05); }
 
-        /* הגדרות התמונה המוקטנת */
-        .image-wrapper { position: relative; width: 75%; margin: 0 auto; } /* תמונה תופסת רק 75% מהרוחב */
+        .image-wrapper { position: relative; width: 85%; margin: 0 auto; } 
         .cell-img { width: 100%; height: auto; display: block; border-radius: 8px; }
 
-        /* עיצוב המלבנים */
         .drop-target { 
             position: absolute; width: 28%; height: 7%; 
-            border: 1.5px solid #4a90e2; background: rgba(255,255,255,0.95); 
+            border: 1.5px solid #4a90e2; background: rgba(255,255,255,1); 
             border-radius: 4px; display: flex; align-items: center; justify-content: center; 
-            font-size: 0.75em; font-weight: bold; color: #4a90e2; cursor: pointer;
+            font-size: 0.8em; font-weight: bold; color: #4a90e2; cursor: pointer;
             transform: translate(-50%, -50%);
-            white-space: nowrap;
+            z-index: 10;
         }
 
         /* --- מיקומים תא צמח (מפה 1) --- */
-        /* צד שמאל */
-        .m1-t1 { top: 44%; left: -15%; } /* קרום התא */
-        .m1-t3 { top: 62%; left: -15%; } /* גרעין התא */
-        /* צד ימין */
-        .m1-t5 { top: 29%; left: 115%; } /* דופן התא */
-        .m1-t6 { top: 54%; left: 115%; } /* חלולית */
-        .m1-t2 { top: 72%; left: 115%; } /* ציטופלזמה */
-        .m1-t7 { top: 82%; left: 115%; } /* כלורופלסט */
-        .m1-t4 { top: 92%; left: 115%; } /* מיטוכונדריה */
+        /* משמאל - מכסים את שאריות החצים */
+        .m1-t1 { top: 44%; left: 10%; width: 30%; } /* קרום התא - מכסה חץ 1 */
+        .m1-t3 { top: 62%; left: 10%; width: 30%; } /* גרעין התא - מכסה חץ 3 */
+        
+        /* מימין - קרוב למספרים (מעל או מתחת) */
+        .m1-t5 { top: 22%; left: 88%; } /* דופן התא - מעל מספר 5 */
+        .m1-t6 { top: 48%; left: 88%; } /* חלולית - מעל מספר 6 */
+        .m1-t2 { top: 66%; left: 88%; } /* ציטופלזמה - מעל מספר 2 */
+        .m1-t7 { top: 82%; left: 88%; } /* כלורופלסט - מתחת למספר 7 */
+        .m1-t4 { top: 94%; left: 88%; } /* מיטוכונדריה - מתחת למספר 4 */
 
         /* --- מיקומים תא בעל חיים (מפה 2) --- */
-        .m2-t4 { top: 12%; left: 115%; } 
-        .m2-t1 { top: 44%; left: 115%; } 
-        .m2-t3 { top: 62%; left: 115%; } 
-        .m2-t2 { top: 78%; left: 115%; } 
+        .m2-t4 { top: 12%; left: 85%; } 
+        .m2-t1 { top: 44%; left: 85%; } 
+        .m2-t3 { top: 62%; left: 85%; } 
+        .m2-t2 { top: 78%; left: 85%; } 
 
         .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; box-shadow: 0 2px 0 #2e7d32; }
     </style>
@@ -60,7 +59,7 @@
 </div>
 
 <div class="instructions">
-    לחצו על שם אברון מהרשימה הצהובה, ואז על הריבוע הריק המתאים לו במפה.
+    לחצו על שם אברון מהרשימה הצהובה, ואז על הריבוע הלבן המתאים לו במפה.
 </div>
 
 <div class="game-section">
@@ -76,13 +75,13 @@
     </div>
     <div class="image-wrapper">
         <img src="cell_map1.jpg" class="cell-img" alt="תא צמח">
-        <div class="drop-target m1-t5" data-id="m1-l5">?</div>
         <div class="drop-target m1-t1" data-id="m1-l1">?</div>
-        <div class="drop-target m1-t6" data-id="m1-l6">?</div>
-        <div class="drop-target m1-t3" data-id="m1-l3">?</div>
         <div class="drop-target m1-t2" data-id="m1-l2">?</div>
-        <div class="drop-target m1-t7" data-id="m1-l7">?</div>
+        <div class="drop-target m1-t3" data-id="m1-l3">?</div>
         <div class="drop-target m1-t4" data-id="m1-l4">?</div>
+        <div class="drop-target m1-t5" data-id="m1-l5">?</div>
+        <div class="drop-target m1-t6" data-id="m1-l6">?</div>
+        <div class="drop-target m1-t7" data-id="m1-l7">?</div>
     </div>
 </div>
 
@@ -123,7 +122,7 @@
                 selectedLabel = null;
             } else {
                 this.style.backgroundColor = "#ffcccc";
-                setTimeout(() => { if(!this.classList.contains('correct')) this.style.backgroundColor = "rgba(255,255,255,0.95)"; }, 500);
+                setTimeout(() => { if(!this.classList.contains('correct')) this.style.backgroundColor = "#fff"; }, 500);
             }
         });
     });
