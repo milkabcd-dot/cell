@@ -8,35 +8,37 @@
         :root { --primary: #4a90e2; --success: #4caf50; --error: #e74c3c; --accent: #ffcc00; }
         body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f9; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; width: 100%; }
         
-        .header, .footer-box { background: var(--primary); color: white; width: 100%; padding: 20px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10; }
-        .header h1, .footer-box h2 { margin: 0; font-size: 1.8em; }
+        .header { background: var(--primary); color: white; width: 100%; padding: 20px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .header h1 { margin: 0; font-size: 1.8em; }
         .credits { font-size: 1.2em; margin-top: 10px; font-weight: bold; }
 
         .instructions { background: #fff; padding: 15px; border-radius: 10px; margin: 20px auto; border-right: 6px solid var(--accent); width: 90%; max-width: 500px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 
-        .game-section, .quiz-section { width: 95%; max-width: 500px; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; text-align: center; position: relative; }
+        .game-section, .quiz-section { width: 95%; max-width: 500px; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; text-align: center; }
         h2 { color: var(--primary); font-size: 1.2em; margin: 5px 0 15px 0; border-bottom: 1px solid #eee; padding-bottom: 8px; }
 
         .labels-bank { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 15px 0; padding: 12px; background: #fafafa; border-radius: 10px; }
-        .label-box { padding: 10px 16px; background: var(--accent); border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9em; box-shadow: 0 3px 0 #d4aa00; position: relative; z-index: 5; }
-        .label-box.selected { border: 2px solid var(--primary); background: #fff; transform: scale(1.05); box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .label-box { padding: 10px 16px; background: var(--accent); border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9em; box-shadow: 0 3px 0 #d4aa00; user-select: none; }
+        .label-box.selected { border: 2px solid var(--primary); background: #fff; transform: scale(1.05); }
 
-        .image-container { width: 100%; margin: 15px 0; position: relative; }
+        .image-container { width: 100%; margin: 15px 0; }
         .cell-img { width: 100%; height: auto; border-radius: 8px; }
 
         .drop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px; }
         .drop-target { background: #fff; border: 2px solid #4a90e2; border-radius: 8px; padding: 10px; font-size: 1.1em; font-weight: bold; color: #4a90e2; cursor: pointer; min-height: 45px; display: flex; align-items: center; justify-content: center; }
-        .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; font-size: 0.8em; }
+        .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; font-size: 0.75em; }
 
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-        .option-btn { padding: 12px 5px; border: 2px solid #ddd; border-radius: 10px; background: #fff; cursor: pointer; font-weight: 600; font-size: 0.9em; }
+        .option-btn { padding: 12px 5px; border: 2px solid #ddd; border-radius: 10px; background: #fff; cursor: pointer; font-weight: 600; font-size: 0.9em; width: 100%; }
         .selected-opt { background: #eef5ff; border-color: var(--primary); color: var(--primary); }
         .correct-selected { background: var(--success) !important; color: white !important; }
         .wrong-selected { background: var(--error) !important; color: white !important; }
         .missed-correct { border: 2px dashed var(--success) !important; color: var(--success); }
 
-        .check-btn { margin-top: 10px; padding: 12px 40px; background: var(--primary); color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 0 #357abd; }
-        .footer-box { margin-top: 20px; }
+        .check-btn { margin-top: 10px; padding: 12px 40px; background: var(--primary); color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; }
+        
+        .final-footer { background: var(--primary); color: white; width: 100%; padding: 30px 0; text-align: center; margin-top: 40px; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); }
+        .final-footer h2 { color: white; border: none; margin: 0; font-size: 1.6em; }
     </style>
 </head>
 <body>
@@ -62,8 +64,11 @@
         <div class="label-box" onclick="selectLabel(this, 'p-6')">חלולית</div>
         <div class="label-box" onclick="selectLabel(this, 'p-7')">כלורופלסט</div>
     </div>
-    <div class="image-container"><img src="cell_map1.jpg" class="cell-img"></div>
+    <div class="image-container"><img src="cell_map1.jpg" class="cell-img" alt="תא צמח"></div>
     
+
+[Image of plant cell structure with labels]
+
     <div class="drop-grid">
         <div class="drop-target" onclick="drop(this, 'p-1')">1</div>
         <div class="drop-target" onclick="drop(this, 'p-2')">2</div>
@@ -83,8 +88,11 @@
         <div class="label-box" onclick="selectLabel(this, 'a-3')">גרעין התא</div>
         <div class="label-box" onclick="selectLabel(this, 'a-4')">מיטוכונדריה</div>
     </div>
-    <div class="image-container"><img src="cell_map2.jpg" class="cell-img"></div>
+    <div class="image-container"><img src="cell_map2.jpg" class="cell-img" alt="תא בעל חיים"></div>
     
+
+[Image of animal cell structure with labels]
+
     <div class="drop-grid">
         <div class="drop-target" onclick="drop(this, 'a-1')">1</div>
         <div class="drop-target" onclick="drop(this, 'a-2')">2</div>
@@ -121,7 +129,9 @@
     </div>
 </div>
 
-<div class="footer-box"><h2>מקווה שנהניתם מהפעילות</h2></div>
+<div class="final-footer">
+    <h2>מקווה שנהניתם מהפעילות</h2>
+</div>
 
 <script>
     let activeLabel = null;
@@ -153,4 +163,22 @@
         }
     }
 
-    function
+    function checkQ(qId) {
+        const q = document.getElementById(qId);
+        const opts = q.querySelectorAll('.option-btn');
+        if (q.querySelectorAll('.selected-opt').length === 0) { alert("בחרו תשובה!"); return; }
+        
+        q.querySelector('.options-grid').classList.add('locked');
+        q.querySelector('.check-btn').disabled = true;
+
+        opts.forEach(opt => {
+            const isCor = opt.getAttribute('data-cor') === 'true';
+            const isSel = opt.classList.contains('selected-opt');
+            if (isSel && isCor) opt.classList.add('correct-selected');
+            else if (isSel && !isCor) opt.classList.add('wrong-selected');
+            else if (!isSel && isCor) opt.classList.add('missed-correct');
+        });
+    }
+</script>
+</body>
+</html>
