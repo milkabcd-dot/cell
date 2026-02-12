@@ -8,58 +8,35 @@
         :root { --primary: #4a90e2; --success: #4caf50; --error: #e74c3c; --accent: #ffcc00; }
         body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f9; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; width: 100%; }
         
-        /* כותרת עליונה ומלבן סיום - מידות זהות */
-        .header, .footer-box { background: var(--primary); color: white; width: 100%; padding: 20px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .header, .footer-box { background: var(--primary); color: white; width: 100%; padding: 20px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10; }
         .header h1, .footer-box h2 { margin: 0; font-size: 1.8em; }
-        .credits { font-size: 1.2em; margin-top: 10px; font-weight: bold; color: #fff; }
+        .credits { font-size: 1.2em; margin-top: 10px; font-weight: bold; }
 
-        .instructions { 
-            background: #fff; padding: 15px; border-radius: 10px; margin: 20px auto; 
-            border-right: 6px solid var(--accent); width: 90%; max-width: 500px; 
-            font-size: 1em; box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
-            text-align: center; box-sizing: border-box;
-        }
+        .instructions { background: #fff; padding: 15px; border-radius: 10px; margin: 20px auto; border-right: 6px solid var(--accent); width: 90%; max-width: 500px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 
-        .game-section, .quiz-section { width: 95%; max-width: 500px; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; text-align: center; box-sizing: border-box; }
-        .game-section h2, .quiz-section h2 { color: var(--primary); font-size: 1.2em; margin: 5px 0 15px 0; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        .game-section, .quiz-section { width: 95%; max-width: 500px; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; text-align: center; position: relative; }
+        h2 { color: var(--primary); font-size: 1.2em; margin: 5px 0 15px 0; border-bottom: 1px solid #eee; padding-bottom: 8px; }
 
         .labels-bank { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 15px 0; padding: 12px; background: #fafafa; border-radius: 10px; }
-        .label-box { padding: 10px 16px; background: var(--accent); border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9em; box-shadow: 0 3px 0 #d4aa00; user-select: none; transition: 0.2s; }
-        .label-box.selected { border: 2px solid var(--primary); background: #fff; transform: scale(1.05); }
+        .label-box { padding: 10px 16px; background: var(--accent); border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9em; box-shadow: 0 3px 0 #d4aa00; position: relative; z-index: 5; }
+        .label-box.selected { border: 2px solid var(--primary); background: #fff; transform: scale(1.05); box-shadow: 0 0 10px rgba(0,0,0,0.1); }
 
-        .image-container { width: 100%; margin: 15px 0; }
-        .cell-img { width: 100%; height: auto; border-radius: 8px; display: block; }
+        .image-container { width: 100%; margin: 15px 0; position: relative; }
+        .cell-img { width: 100%; height: auto; border-radius: 8px; }
 
-        .drop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px; margin-top: 15px; }
-        .drop-target { 
-            background: #fff; border: 2px solid #4a90e2; border-radius: 8px; 
-            padding: 10px; font-size: 1.1em; font-weight: bold; color: #4a90e2;
-            cursor: pointer; display: flex; align-items: center; justify-content: center; min-height: 45px;
-        }
+        .drop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px; }
+        .drop-target { background: #fff; border: 2px solid #4a90e2; border-radius: 8px; padding: 10px; font-size: 1.1em; font-weight: bold; color: #4a90e2; cursor: pointer; min-height: 45px; display: flex; align-items: center; justify-content: center; }
         .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; font-size: 0.8em; }
 
-        .quiz-question { text-align: right; margin-bottom: 30px; padding: 10px; }
-        .quiz-question p { font-weight: bold; margin-bottom: 15px; color: #333; line-height: 1.4; }
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .option-btn { 
-            padding: 12px 8px; border: 2px solid #ddd; border-radius: 10px; background: #fff; 
-            cursor: pointer; font-size: 0.9em; font-weight: 600; transition: all 0.2s;
-            display: block; width: 100%;
-        }
-        .option-btn.selected-opt { background: #eef5ff; border-color: var(--primary); color: var(--primary); }
-        
-        .correct-selected { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; }
-        .wrong-selected { background: var(--error) !important; color: white !important; border-color: #c0392b !important; }
-        .missed-correct { border: 2px dashed var(--success) !important; color: var(--success); background: #f0fff0; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+        .option-btn { padding: 12px 5px; border: 2px solid #ddd; border-radius: 10px; background: #fff; cursor: pointer; font-weight: 600; font-size: 0.9em; }
+        .selected-opt { background: #eef5ff; border-color: var(--primary); color: var(--primary); }
+        .correct-selected { background: var(--success) !important; color: white !important; }
+        .wrong-selected { background: var(--error) !important; color: white !important; }
+        .missed-correct { border: 2px dashed var(--success) !important; color: var(--success); }
 
-        .check-btn { 
-            margin-top: 5px; padding: 12px 40px; background: var(--primary); color: white; 
-            border: none; border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 1em;
-            box-shadow: 0 4px 0 #357abd;
-        }
-        .check-btn:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; }
-
-        @media (max-width: 400px) { .drop-grid { grid-template-columns: repeat(3, 1fr); } }
+        .check-btn { margin-top: 10px; padding: 12px 40px; background: var(--primary); color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 0 #357abd; }
+        .footer-box { margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -70,7 +47,6 @@
 </div>
 
 <div class="instructions">
-    <strong>איך משחקים?</strong><br>
     1. בחרו אברון מהרשימה הצהובה.<br>
     2. לחצו על המספר המתאים במפה.
 </div>
@@ -78,128 +54,103 @@
 <div class="game-section">
     <h2>תא צמח</h2>
     <div class="labels-bank">
-        <div class="label-box" id="p-1">קרום התא</div>
-        <div class="label-box" id="p-2">ציטופלזמה</div>
-        <div class="label-box" id="p-3">גרעין התא</div>
-        <div class="label-box" id="p-4">מיטוכונדריה</div>
-        <div class="label-box" id="p-5">דופן התא</div>
-        <div class="label-box" id="p-6">חלולית</div>
-        <div class="label-box" id="p-7">כלורופלסט</div>
+        <div class="label-box" onclick="selectLabel(this, 'p-1')">קרום התא</div>
+        <div class="label-box" onclick="selectLabel(this, 'p-2')">ציטופלזמה</div>
+        <div class="label-box" onclick="selectLabel(this, 'p-3')">גרעין התא</div>
+        <div class="label-box" onclick="selectLabel(this, 'p-4')">מיטוכונדריה</div>
+        <div class="label-box" onclick="selectLabel(this, 'p-5')">דופן התא</div>
+        <div class="label-box" onclick="selectLabel(this, 'p-6')">חלולית</div>
+        <div class="label-box" onclick="selectLabel(this, 'p-7')">כלורופלסט</div>
     </div>
-    <div class="image-container"><img src="cell_map1.jpg" class="cell-img" alt="תא צמח"></div>
+    <div class="image-container"><img src="cell_map1.jpg" class="cell-img"></div>
+    
     <div class="drop-grid">
-        <div class="drop-target" data-id="p-1">1</div>
-        <div class="drop-target" data-id="p-2">2</div>
-        <div class="drop-target" data-id="p-3">3</div>
-        <div class="drop-target" data-id="p-4">4</div>
-        <div class="drop-target" data-id="p-5">5</div>
-        <div class="drop-target" data-id="p-6">6</div>
-        <div class="drop-target" data-id="p-7">7</div>
+        <div class="drop-target" onclick="drop(this, 'p-1')">1</div>
+        <div class="drop-target" onclick="drop(this, 'p-2')">2</div>
+        <div class="drop-target" onclick="drop(this, 'p-3')">3</div>
+        <div class="drop-target" onclick="drop(this, 'p-4')">4</div>
+        <div class="drop-target" onclick="drop(this, 'p-5')">5</div>
+        <div class="drop-target" onclick="drop(this, 'p-6')">6</div>
+        <div class="drop-target" onclick="drop(this, 'p-7')">7</div>
     </div>
 </div>
 
 <div class="game-section">
     <h2>תא בעל חיים</h2>
     <div class="labels-bank">
-        <div class="label-box" id="a-1">קרום התא</div>
-        <div class="label-box" id="a-2">ציטופלזמה</div>
-        <div class="label-box" id="a-3">גרעין התא</div>
-        <div class="label-box" id="a-4">מיטוכונדריה</div>
+        <div class="label-box" onclick="selectLabel(this, 'a-1')">קרום התא</div>
+        <div class="label-box" onclick="selectLabel(this, 'a-2')">ציטופלזמה</div>
+        <div class="label-box" onclick="selectLabel(this, 'a-3')">גרעין התא</div>
+        <div class="label-box" onclick="selectLabel(this, 'a-4')">מיטוכונדריה</div>
     </div>
-    <div class="image-container"><img src="cell_map2.jpg" class="cell-img" alt="תא בעל חיים"></div>
+    <div class="image-container"><img src="cell_map2.jpg" class="cell-img"></div>
+    
     <div class="drop-grid">
-        <div class="drop-target" data-id="a-1">1</div>
-        <div class="drop-target" data-id="a-2">2</div>
-        <div class="drop-target" data-id="a-3">3</div>
-        <div class="drop-target" data-id="a-4">4</div>
+        <div class="drop-target" onclick="drop(this, 'a-1')">1</div>
+        <div class="drop-target" onclick="drop(this, 'a-2')">2</div>
+        <div class="drop-target" onclick="drop(this, 'a-3')">3</div>
+        <div class="drop-target" onclick="drop(this, 'a-4')">4</div>
     </div>
 </div>
 
 <div class="quiz-section">
     <h2>שאלות סיכום</h2>
-    
     <div class="quiz-question" id="q1">
         <p>1. סמנו את האברונים המשותפים לתא צמח ולתא בעל חיים:</p>
         <div class="options-grid">
-            <button class="option-btn" data-correct="true">קרום התא</button>
-            <button class="option-btn" data-correct="false">דופן התא</button>
-            <button class="option-btn" data-correct="true">גרעין התא</button>
-            <button class="option-btn" data-correct="false">כלורופלסט</button>
-            <button class="option-btn" data-correct="true">מיטוכונדריה</button>
-            <button class="option-btn" data-correct="true">ציטופלזמה</button>
+            <button class="option-btn" data-cor="true" onclick="toggleOpt(this)">קרום התא</button>
+            <button class="option-btn" data-cor="false" onclick="toggleOpt(this)">דופן התא</button>
+            <button class="option-btn" data-cor="true" onclick="toggleOpt(this)">גרעין התא</button>
+            <button class="option-btn" data-cor="false" onclick="toggleOpt(this)">כלורופלסט</button>
+            <button class="option-btn" data-cor="true" onclick="toggleOpt(this)">מיטוכונדריה</button>
+            <button class="option-btn" data-cor="true" onclick="toggleOpt(this)">ציטופלזמה</button>
         </div>
-        <button class="check-btn" onclick="checkQuestion('q1')">בדיקה</button>
+        <button class="check-btn" onclick="checkQ('q1')">בדיקה</button>
     </div>
-
     <div class="quiz-question" id="q2">
         <p>2. אילו אברונים מאפיינים רק את תא הצמח?</p>
         <div class="options-grid">
-            <button class="option-btn" data-correct="true">דופן התא</button>
-            <button class="option-btn" data-correct="false">קרום התא</button>
-            <button class="option-btn" data-correct="true">כלורופלסט</button>
-            <button class="option-btn" data-correct="true">חלולית גדולה</button>
-            <button class="option-btn" data-correct="false">מיטוכונדריה</button>
-            <button class="option-btn" data-correct="false">גרעין התא</button>
+            <button class="option-btn" data-cor="true" onclick="toggleOpt(this)">דופן התא</button>
+            <button class="option-btn" data-cor="false" onclick="toggleOpt(this)">קרום התא</button>
+            <button class="option-btn" data-cor="true" onclick="toggleOpt(this)">כלורופלסט</button>
+            <button class="option-btn" data-cor="true" onclick="toggleOpt(this)">חלולית גדולה</button>
+            <button class="option-btn" data-cor="false" onclick="toggleOpt(this)">מיטוכונדריה</button>
+            <button class="option-btn" data-cor="false" onclick="toggleOpt(this)">גרעין התא</button>
         </div>
-        <button class="check-btn" onclick="checkQuestion('q2')">בדיקה</button>
+        <button class="check-btn" onclick="checkQ('q2')">בדיקה</button>
     </div>
 </div>
 
-<div class="footer-box">
-    <h2>מקווה שנהניתם מהפעילות</h2>
-</div>
+<div class="footer-box"><h2>מקווה שנהניתם מהפעילות</h2></div>
 
 <script>
-    let selectedLabel = null;
-    
-    document.querySelectorAll('.label-box').forEach(label => {
-        label.addEventListener('click', function() {
-            document.querySelectorAll('.label-box').forEach(l => l.classList.remove('selected'));
-            selectedLabel = this; this.classList.add('selected');
-        });
-    });
+    let activeLabel = null;
+    let activeId = null;
 
-    document.querySelectorAll('.drop-target').forEach(target => {
-        target.addEventListener('click', function() {
-            if (!selectedLabel) return;
-            if (this.getAttribute('data-id') === selectedLabel.id) {
-                this.innerText = selectedLabel.innerText;
-                this.classList.add('correct');
-                selectedLabel.style.visibility = 'hidden';
-                selectedLabel = null;
-            } else {
-                this.style.backgroundColor = "#ffcccc";
-                setTimeout(() => { if(!this.classList.contains('correct')) this.style.backgroundColor = "#fff"; }, 500);
-            }
-        });
-    });
+    function selectLabel(el, id) {
+        document.querySelectorAll('.label-box').forEach(b => b.classList.remove('selected'));
+        activeLabel = el;
+        activeId = id;
+        el.classList.add('selected');
+    }
 
-    document.querySelectorAll('.option-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            if(!this.parentElement.classList.contains('locked')) {
-                this.classList.toggle('selected-opt');
-            }
-        });
-    });
-
-    function checkQuestion(id) {
-        const q = document.getElementById(id);
-        const optionsList = q.querySelector('.options-grid');
-        const options = q.querySelectorAll('.option-btn');
-        const selected = q.querySelectorAll('.selected-opt');
-        
-        if (selected.length === 0) {
-            alert("אנא בחרו לפחות תשובה אחת לפני הבדיקה!");
-            return;
+    function drop(el, targetId) {
+        if (!activeLabel) return;
+        if (activeId === targetId) {
+            el.innerText = activeLabel.innerText;
+            el.classList.add('correct');
+            activeLabel.style.visibility = 'hidden';
+            activeLabel = null;
+        } else {
+            el.style.backgroundColor = '#ffcccc';
+            setTimeout(() => { if(!el.classList.contains('correct')) el.style.backgroundColor = '#fff'; }, 500);
         }
+    }
 
-        optionsList.classList.add('locked');
-        q.querySelector('.check-btn').disabled = true;
+    function toggleOpt(btn) {
+        if (!btn.parentElement.classList.contains('locked')) {
+            btn.classList.toggle('selected-opt');
+        }
+    }
 
-        options.forEach(opt => {
-            const isCorrect = opt.getAttribute('data-correct') === 'true';
-            const isSelected = opt.classList.contains('selected-opt');
-            
-            if (isSelected && isCorrect) opt.classList.add('correct-selected');
-            else if (isSelected && !isCorrect) opt.classList.add('wrong-selected');
-            else if (!isSelected && isCorrect) opt.classList.add('missed-correct');
+    function
