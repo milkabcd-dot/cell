@@ -37,24 +37,29 @@
         }
         .correct { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; font-size: 0.8em; }
 
-        .quiz-question { text-align: right; margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #f0f0f0; }
-        .quiz-question p { font-weight: bold; margin-bottom: 10px; color: #333; }
-        .options-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        /* תיקון שאלות הסיכום */
+        .quiz-question { text-align: right; margin-bottom: 30px; padding: 10px; }
+        .quiz-question p { font-weight: bold; margin-bottom: 15px; color: #333; line-height: 1.4; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .option-btn { 
-            padding: 10px; border: 2px solid #ddd; border-radius: 8px; background: #fff; 
-            cursor: pointer; font-size: 0.95em; transition: 0.3s; font-weight: 500;
+            padding: 12px 8px; border: 2px solid #ddd; border-radius: 10px; background: #fff; 
+            cursor: pointer; font-size: 0.9em; font-weight: 600; transition: all 0.2s;
+            display: block; width: 100%;
         }
         .option-btn.selected-opt { background: #eef5ff; border-color: var(--primary); color: var(--primary); }
         
+        /* צבעי משוב */
         .correct-selected { background: var(--success) !important; color: white !important; border-color: #2e7d32 !important; }
         .wrong-selected { background: var(--error) !important; color: white !important; border-color: #c0392b !important; }
         .missed-correct { border: 2px dashed var(--success) !important; color: var(--success); background: #f0fff0; }
 
         .check-btn { 
-            margin-top: 15px; padding: 12px 30px; background: var(--primary); color: white; 
-            border: none; border-radius: 25px; cursor: pointer; font-weight: bold; transition: 0.3s;
+            margin-top: 5px; padding: 12px 40px; background: var(--primary); color: white; 
+            border: none; border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 1em;
+            box-shadow: 0 4px 0 #357abd;
         }
-        .check-btn:disabled { background: #ccc; cursor: not-allowed; }
+        .check-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #357abd; }
+        .check-btn:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; }
 
         @media (max-width: 400px) { .drop-grid { grid-template-columns: repeat(3, 1fr); } }
     </style>
@@ -117,7 +122,7 @@
     
     <div class="quiz-question" id="q1">
         <p>1. סמנו את האברונים המשותפים לתא צמח ולתא בעל חיים:</p>
-        <div class="options-list">
+        <div class="options-grid">
             <button class="option-btn" data-correct="true">קרום התא</button>
             <button class="option-btn" data-correct="false">דופן התא</button>
             <button class="option-btn" data-correct="true">גרעין התא</button>
@@ -129,8 +134,84 @@
     </div>
 
     <div class="quiz-question" id="q2">
-        <p>2. אילו אברונים קיימים רק בתא הצמח?</p>
-        <div class="options-list">
+        <p>2. אילו אברונים מאפיינים רק את תא הצמח?</p>
+        <div class="options-grid">
             <button class="option-btn" data-correct="true">דופן התא</button>
             <button class="option-btn" data-correct="false">קרום התא</button>
-            <button class="option-btn
+            <button class="option-btn" data-correct="true">כלורופלסט</button>
+            <button class="option-btn" data-correct="true">חלולית גדולה</button>
+            <button class="option-btn" data-correct="false">מיטוכונדריה</button>
+            <button class="option-btn" data-correct="false">גרעין התא</button>
+        </div>
+        <button class="check-btn" onclick="checkQuestion('q2')">בדיקה</button>
+    </div>
+</div>
+
+<script>
+    let selectedLabel = null;
+    
+    // ניהול בחירת אברונים
+    document.querySelectorAll('.label-box').forEach(label => {
+        label.addEventListener('click', function() {
+            document.querySelectorAll('.label-box').forEach(l => l.classList.remove('selected'));
+            selectedLabel = this; this.classList.add('selected');
+        });
+    });
+
+    // ניהול הצבת אברונים במפה
+    document.querySelectorAll('.drop-target').forEach(target => {
+        target.addEventListener('click', function() {
+            if (!selectedLabel) return;
+            if (this.getAttribute('data-id') === selectedLabel.id) {
+                this.innerText = selectedLabel.innerText;
+                this.classList.add('correct');
+                selectedLabel.style.visibility = 'hidden';
+                selectedLabel = null;
+            } else {
+                this.style.backgroundColor = "#ffcccc";
+                setTimeout(() => { if(!this.classList.contains('correct')) this.style.backgroundColor = "#fff"; }, 500);
+            }
+        });
+    });
+
+    // ניהול בחירת תשובות בשאלות
+    document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if(!this.parentElement.classList.contains('locked')) {
+                this.classList.toggle('selected-opt');
+            }
+        });
+    });
+
+    // פונקציית בדיקה
+    function checkQuestion(id) {
+        const q = document.getElementById(id);
+        const optionsList = q.querySelector('.options-grid');
+        const options = q.querySelectorAll('.option-btn');
+        const selected = q.querySelectorAll('.selected-opt');
+        
+        if (selected.length === 0) {
+            alert("אנא בחרו לפחות תשובה אחת לפני הבדיקה!");
+            return;
+        }
+
+        optionsList.classList.add('locked');
+        q.querySelector('.check-btn').disabled = true;
+
+        options.forEach(opt => {
+            const isCorrect = opt.getAttribute('data-correct') === 'true';
+            const isSelected = opt.classList.contains('selected-opt');
+            
+            if (isSelected && isCorrect) {
+                opt.classList.add('correct-selected');
+            } else if (isSelected && !isCorrect) {
+                opt.classList.add('wrong-selected');
+            } else if (!isSelected && isCorrect) {
+                opt.classList.add('missed-correct');
+            }
+            opt.style.cursor = "default";
+        });
+    }
+</script>
+</body>
+</html>
